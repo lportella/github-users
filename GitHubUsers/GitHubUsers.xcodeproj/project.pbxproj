@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F9A6788B2DB2EE68008D4041 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = F9A6788A2DB2EE68008D4041 /* NetworkKit */; };
+		F9ECCEEB2DB319B500B3CDD2 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F9ECCEEA2DB319B500B3CDD2 /* Swinject */; };
+		F9ECCEED2DB319D000B3CDD2 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = F9ECCEEC2DB319D000B3CDD2 /* Swinject-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +72,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9ECCEED2DB319D000B3CDD2 /* Swinject-Dynamic in Frameworks */,
 				F9A6788B2DB2EE68008D4041 /* NetworkKit in Frameworks */,
+				F9ECCEEB2DB319B500B3CDD2 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +145,8 @@
 			name = GitHubUsers;
 			packageProductDependencies = (
 				F9A6788A2DB2EE68008D4041 /* NetworkKit */,
+				F9ECCEEA2DB319B500B3CDD2 /* Swinject */,
+				F9ECCEEC2DB319D000B3CDD2 /* Swinject-Dynamic */,
 			);
 			productName = GitHubUsers;
 			productReference = F959B39A2DB29B620022C1AB /* GitHubUsers.app */;
@@ -224,6 +230,9 @@
 			);
 			mainGroup = F959B3912DB29B620022C1AB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F9ECCEE62DB3145800B3CDD2 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F959B39B2DB29B620022C1AB /* Products */;
 			projectDirPath = "";
@@ -586,10 +595,31 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F9ECCEE62DB3145800B3CDD2 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		F9A6788A2DB2EE68008D4041 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
+		};
+		F9ECCEEA2DB319B500B3CDD2 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9ECCEE62DB3145800B3CDD2 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		F9ECCEEC2DB319D000B3CDD2 /* Swinject-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9ECCEE62DB3145800B3CDD2 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = "Swinject-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
