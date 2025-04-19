@@ -7,7 +7,9 @@
 
 import Combine
 
-public class NetworkExposable: Networking {
+public final class NetworkExposable: Networking {
+    public init() {}
+    
     public func request<T>(_ endpoint: any EndpointData) -> AnyPublisher<T, ApiError> where T : Decodable {
         CoreNetworking().request(endpoint)
     }

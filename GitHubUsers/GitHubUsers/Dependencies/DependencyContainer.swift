@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import NetworkKit
 
 final class DependencyContainer {
     static let shared = DependencyContainer()
@@ -16,7 +17,9 @@ final class DependencyContainer {
     }
     
     private func registerServices() {
-        // - To do: add networking registration
+        container.register(Networking.self) { _ in
+            NetworkExposable()
+        }
         // - To do: add webview registration
     }
 }
