@@ -1,5 +1,5 @@
 //
-//  SearchCoordinator.swift
+//  UserListCoordinator.swift
 //  GitHubUsers
 //
 //  Created by Lucas Portella on 2025/04/18.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchCoordinator: Coordinating {
+final class UserListCoordinator: Coordinating {
     var navigationController: UINavigationController
     
     init(_ navigationController: UINavigationController) {
@@ -15,7 +15,7 @@ final class SearchCoordinator: Coordinating {
     }
     
     func start() {
-        let usersViewController = SearchFactory.make()
+        let usersViewController = UserListFactory.make()
         navigationController.setViewControllers([usersViewController], animated: true)
     }
 }
