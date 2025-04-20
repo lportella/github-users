@@ -20,7 +20,7 @@ final class AppCoordinator: Coordinating {
     }
     
     func start() {
-        let searchCoordinator = SearchCoordinator(navigationController)
+        let searchCoordinator = UserListCoordinator(navigationController)
         searchCoordinator.start()
         childViewControllers = [searchCoordinator]
         window.rootViewController = searchCoordinator.navigationController

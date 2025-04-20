@@ -13,4 +13,5 @@ public enum ApiError: Error {
     case httpStatus(code: Int, data: Data)
     case unknown
     case invalidResponse
+    case invalidURL
 }

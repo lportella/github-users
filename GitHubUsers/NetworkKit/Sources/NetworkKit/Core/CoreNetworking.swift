@@ -5,7 +5,6 @@
 //  Created by Lucas Portella on 2025/04/18.
 //
 
-import Combine
 import Foundation
 
 class CoreNetworking {
@@ -15,34 +14,16 @@ class CoreNetworking {
         self.session = session
     }
     
-    func request<T>(_ endpoint: any EndpointData) -> AnyPublisher<T, ApiError> where T : Decodable {
-        let request = endpoint.url
-
-        return session.dataTaskPublisher(for: request)
-            .tryMap { [weak self] result in
-                try self?.checkHTTPError(result)
-                return result.data
-            }
-            .decode(type: T.self, decoder: JSONDecoder())
-            .mapError { error -> ApiError in
-                if let decodingError = error as? DecodingError {
-                    return .decodingError(decodingError, data: nil)
-                } else {
-                    return .networkError(error)
-                }
-            }
-            .eraseToAnyPublisher()
-    }
-    
     func request<T: Decodable>(_ endpoint: any EndpointData) async throws -> T {
         let (data, response): (Data, URLResponse)
 
         do {
-            (data, response) = try await session.data(from: endpoint.url)
+            let urlRequest = try handleURL(endpoint)
+            (data, response) = try await session.data(for: urlRequest)
         } catch let urlError as URLError {
             throw ApiError.networkError(urlError)
         } catch {
-            throw ApiError.unknown
+            throw error
         }
 
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -56,6 +37,7 @@ class CoreNetworking {
         do {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
+            NSLog(String(data: data, encoding: .utf8) ?? "Cannot convert data")
             return try decoder.decode(T.self, from: data)
         } catch {
             throw ApiError.decodingError(error, data: data)
@@ -72,5 +54,20 @@ private extension CoreNetworking {
         guard (200...299).contains(response.statusCode) else {
             throw ApiError.httpStatus(code: response.statusCode, data: result.data)
         }
+    }
+    
+    func handleURL(_ endpointData: EndpointData) throws -> URLRequest {
+        guard
+            let fullURLString = endpointData.buildURLString(),
+            let url = URL(string: fullURLString)
+        else {
+            throw ApiError.invalidURL
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = endpointData.method.rawValue
+        urlRequest.allHTTPHeaderFields = endpointData.headers
+        urlRequest.httpBody = endpointData.body
+        return urlRequest
     }
 }

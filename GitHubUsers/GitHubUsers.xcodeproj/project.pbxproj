@@ -306,6 +306,8 @@
 /* Begin XCBuildConfiguration section */
 		F959B3C42DB29B630022C1AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F959B39C2DB29B620022C1AB /* GitHubUsers */;
+			baseConfigurationReferenceRelativePath = Shared/Config/Debug.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -362,6 +364,8 @@
 		};
 		F959B3C62DB29B630022C1AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F959B39C2DB29B620022C1AB /* GitHubUsers */;
+			baseConfigurationReferenceRelativePath = Shared/Config/Debug.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
