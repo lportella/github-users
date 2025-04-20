@@ -9,13 +9,17 @@ import UIKit
 
 final class UserDetailsCoordinator: Coordinating {
     var navigationController: UINavigationController
+    var username: String
     
-    init(navigationController: UINavigationController) {
+    init(username: String, navigationController: UINavigationController) {
+        self.username = username
         self.navigationController = navigationController
     }
     
     func start() {
-        let userDetailsViewController = UserDetailsFactory.make()
+        let userDetailsViewController = UserDetailsFactory.make(
+            with: username
+        )
         navigationController.pushViewController(
             userDetailsViewController,
             animated: true

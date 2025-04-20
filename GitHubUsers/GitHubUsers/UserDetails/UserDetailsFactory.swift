@@ -8,7 +8,9 @@
 import UIKit
 
 final class UserDetailsFactory {
-    static func make() -> UIViewController {
-        UIViewController()
+    static func make(with username: String) -> UIViewController {
+        let viewModel = UserDetailsViewModel(username: username)
+        let viewController = UserDetailsViewController()
+        return viewController
     }
 }
