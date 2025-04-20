@@ -14,6 +14,10 @@ final class UserListFactory {
         let resolver = DependencyContainer.shared.container
         let userListViewModel = UserListViewModel(networkService: resolver.resolve(Networking.self))
         let viewController = UserListViewController(viewModel: userListViewModel)
+        
+        userListViewModel.onLoadingChanged = viewController.handleLoading(_:)
+        userListViewModel.onUserListLoaded = viewController.handleUserList(_:)
+        
         return viewController
     }
 }
