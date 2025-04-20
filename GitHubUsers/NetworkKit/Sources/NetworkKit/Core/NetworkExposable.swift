@@ -13,4 +13,8 @@ public final class NetworkExposable: Networking {
     public func request<T>(_ endpoint: any EndpointData) -> AnyPublisher<T, ApiError> where T : Decodable {
         CoreNetworking().request(endpoint)
     }
+    
+    public func request<T>(_ endpoint: any EndpointData) async throws -> T where T: Decodable {
+        return try await CoreNetworking().request(endpoint)
+    }
 }

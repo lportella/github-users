@@ -8,8 +8,9 @@
 import Foundation
 
 public enum ApiError: Error {
-    case decoding(Error)
-    case network(Error)
+    case decodingError(Error, data: Data?)
+    case networkError(Error)
     case httpStatus(code: Int, data: Data)
     case unknown
+    case invalidResponse
 }
