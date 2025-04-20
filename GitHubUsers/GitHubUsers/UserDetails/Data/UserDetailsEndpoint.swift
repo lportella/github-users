@@ -9,8 +9,10 @@ import NetworkKit
 import Foundation
 
 struct UserDetailsEndpoint: EndpointData {
+    let username: String
+    
     var path: String {
-        "to do"
+        "/users/\(username)"
     }
     
     var method: HTTPMethod {
