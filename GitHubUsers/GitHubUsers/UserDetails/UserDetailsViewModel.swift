@@ -11,8 +11,11 @@ final class UserDetailsViewModel: UserDetailsUseCase, RequestUseCase {
     private let networkService: Networking
     let username: String
     
+    var onFullUserDetailsLoaded: ((UserDetailsModel, [UserRepositoryModel]) -> Void)?
     var onLoadingChanged: ((Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
+    
+    weak var navigationHandler: UserDetailsNavigationHandling?
     
     init(username: String, networkService: Networking) {
         self.username = username
@@ -33,7 +36,7 @@ extension UserDetailsViewModel {
             let (userDetails, userRepos) = try await (fetchUserDetails, fetchUserRepos)
             
             await MainActor.run { [weak self] in
-                // MARK: add use case for user details
+                self?.onFullUserDetailsLoaded?(userDetails, userRepos)
                 self?.onLoadingChanged?(false)
             }
         } catch {
@@ -49,5 +52,9 @@ extension UserDetailsViewModel {
     func fetchUserRepositories() async throws -> [UserRepositoryModel] {
         let userReposEndpoint = UserRepositoriesEndpoint(username: username)
         return try await networkService.request(userReposEndpoint)
+    }
+    
+    func didSelectRepository(_ repository: UserRepositoryModel) {
+        navigationHandler?.didSelectRepository(with: repository.url)
     }
 }

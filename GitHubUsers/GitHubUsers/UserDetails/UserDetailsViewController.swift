@@ -36,5 +36,11 @@ extension UserDetailsViewController: ViewControllerDisplaying {
 
 
 extension UserDetailsViewController: UserDetailsDisplaying {
+    func handleUserDetails(_ userDetails: UserDetailsModel, _ userRepos: [UserRepositoryModel]) {
+        // MARK: To do - implement functions to create view components
+    }
     
+    func didSelectRepository(_ repository: UserRepositoryModel) {
+        
+    }
 }
