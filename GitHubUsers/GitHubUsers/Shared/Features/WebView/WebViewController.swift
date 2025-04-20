@@ -44,6 +44,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate, ViewBuild
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewBuilding()
+        loadURL()
     }
 }
 
@@ -69,5 +70,10 @@ extension WebViewController {
 private extension WebViewController {
     @objc func refreshWebView() {
         webView.reload()
+    }
+    
+    private func loadURL() {
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
 }
