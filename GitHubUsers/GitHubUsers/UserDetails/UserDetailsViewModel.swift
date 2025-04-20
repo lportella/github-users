@@ -34,9 +34,10 @@ extension UserDetailsViewModel {
             async let fetchUserRepos = fetchUserRepositories()
             
             let (userDetails, userRepos) = try await (fetchUserDetails, fetchUserRepos)
+            let notForkedRepos: [UserRepositoryModel] = userRepos.filter({ $0.fork == false })
             
             await MainActor.run { [weak self] in
-                self?.onFullUserDetailsLoaded?(userDetails, userRepos)
+                self?.onFullUserDetailsLoaded?(userDetails, notForkedRepos)
                 self?.onLoadingChanged?(false)
             }
         } catch {
@@ -55,6 +56,6 @@ extension UserDetailsViewModel {
     }
     
     func didSelectRepository(_ repository: UserRepositoryModel) {
-        navigationHandler?.didSelectRepository(with: repository.url)
+        navigationHandler?.didSelectRepository(with: repository.repoUrl)
     }
 }
