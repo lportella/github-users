@@ -7,9 +7,18 @@
 
 struct UserRepositoryModel: Decodable, Equatable {
     let name: String
-    let url: String
+    let repoUrl: String
     let description: String?
     let fork: Bool
     let language: String?
     let stargazersCount: Int
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case repoUrl = "svn_url"
+        case description
+        case fork
+        case language
+        case stargazersCount
+    }
 }
