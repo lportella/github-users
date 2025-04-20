@@ -17,9 +17,15 @@ extension EndpointData {
         [
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
-            "Authorization": "Bearer <TO DO>"
+            "Authorization": "Bearer \(getBearerToken())"
         ]
     }
     
     var body: Data? { nil }
+}
+
+fileprivate extension EndpointData {
+    func getBearerToken() -> String {
+        NetworkConfig.githubToken ?? String()
+    }
 }

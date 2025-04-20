@@ -23,8 +23,7 @@ final class UserListViewModel: UserListUseCase, RequestUseCase {
 extension UserListViewModel  {
     func fetchUserList() async {
         do {
-            let response: [BaseUser] = try await networkService.request(UserListEndpoint())
-            print(response)
+            let response: [BaseUser] = try await networkService.request(UserListEndpoint())        
         } catch {
             print("Error: \(error)")
         }
