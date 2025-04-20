@@ -8,5 +8,5 @@
 protocol UserDetailsUseCase {
     func fetchFullUserDetails() async throws
     func fetchUserDetails() async throws -> UserDetailsModel
-    func fetchUserRepositories() async throws -> UserRepositoryModel
+    func fetchUserRepositories() async throws -> [UserRepositoryModel]
 }
