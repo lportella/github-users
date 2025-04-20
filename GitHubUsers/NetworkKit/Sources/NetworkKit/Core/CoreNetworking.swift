@@ -26,12 +26,40 @@ class CoreNetworking {
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error -> ApiError in
                 if let decodingError = error as? DecodingError {
-                    return .decoding(decodingError)
+                    return .decodingError(decodingError, data: nil)
                 } else {
-                    return .network(error)
+                    return .networkError(error)
                 }
             }
             .eraseToAnyPublisher()
+    }
+    
+    func request<T: Decodable>(_ endpoint: any EndpointData) async throws -> T {
+        let (data, response): (Data, URLResponse)
+
+        do {
+            (data, response) = try await session.data(from: endpoint.url)
+        } catch let urlError as URLError {
+            throw ApiError.networkError(urlError)
+        } catch {
+            throw ApiError.unknown
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw ApiError.invalidResponse
+        }
+
+        guard httpResponse.isSuccessful else {
+            throw ApiError.httpStatus(code: httpResponse.statusCode, data: data)
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            throw ApiError.decodingError(error, data: data)
+        }
     }
 }
 
