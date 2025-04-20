@@ -7,5 +7,7 @@
 
 protocol UserListUseCase {
     var onUserListLoaded: (([BaseUser]) -> Void)? { get set }
+    var onUserSelected: ((BaseUser) -> Void)? { get set }
     func fetchUserList() async
+    func didSelectUser(_ user: BaseUser)
 }

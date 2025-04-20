@@ -15,7 +15,11 @@ final class UserListCoordinator: Coordinating {
     }
     
     func start() {
-        let usersViewController = UserListFactory.make()
+        let usersViewController = UserListFactory.make(goToUserScreen(_:))
         navigationController.setViewControllers([usersViewController], animated: true)
+    }
+    
+    func goToUserScreen(_ user: BaseUser) {
+        // MARK: To do - implement user details screen
     }
 }

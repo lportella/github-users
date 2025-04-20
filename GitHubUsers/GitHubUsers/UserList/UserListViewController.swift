@@ -39,4 +39,8 @@ extension UserListViewController: UserListDisplaying {
         print("got user list")
         // MARK: To do - implement user list
     }
+    
+    func didSelectUser(_ user: BaseUser) {
+        viewModel.didSelectUser(user)
+    }
 }
