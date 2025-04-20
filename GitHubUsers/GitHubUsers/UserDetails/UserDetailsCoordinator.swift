@@ -18,11 +18,18 @@ final class UserDetailsCoordinator: Coordinating {
     
     func start() {
         let userDetailsViewController = UserDetailsFactory.make(
-            with: username
+            with: username,
+            navigationHandler: self
         )
         navigationController.pushViewController(
             userDetailsViewController,
             animated: true
         )
+    }
+}
+
+extension UserDetailsCoordinator: UserDetailsNavigationHandling {
+    func didSelectRepository(with urlString: String) {
+        // MARK: display webview
     }
 }

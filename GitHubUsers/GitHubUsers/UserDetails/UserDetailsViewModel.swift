@@ -11,6 +11,7 @@ final class UserDetailsViewModel: UserDetailsUseCase, RequestUseCase {
     private let networkService: Networking
     let username: String
     
+    var onFullUserDetailsLoaded: ((UserDetailsModel, [UserRepositoryModel]) -> Void)?
     var onLoadingChanged: ((Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
     
@@ -35,7 +36,7 @@ extension UserDetailsViewModel {
             let (userDetails, userRepos) = try await (fetchUserDetails, fetchUserRepos)
             
             await MainActor.run { [weak self] in
-                // MARK: add use case for user details
+                self?.onFullUserDetailsLoaded?(userDetails, userRepos)
                 self?.onLoadingChanged?(false)
             }
         } catch {
