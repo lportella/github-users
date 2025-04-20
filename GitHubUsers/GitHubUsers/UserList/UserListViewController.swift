@@ -26,3 +26,17 @@ final class UserListViewController: UIViewController {
         }
     }
 }
+
+extension UserListViewController: ViewControllerDisplaying {
+    func handleLoading(_ isLoading: Bool) {
+        print("is loading: \(isLoading)")
+        // MARK: To do - implement loading view
+    }
+}
+
+extension UserListViewController: UserListDisplaying {
+    func handleUserList(_ userList: [BaseUser]) {
+        print("got user list")
+        // MARK: To do - implement user list
+    }
+}
