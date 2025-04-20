@@ -46,7 +46,7 @@ extension UserDetailsViewModel {
         return try await networkService.request(userDetailsEndpoint)
     }
     
-    func fetchUserRepositories() async throws -> UserRepositoryModel {
+    func fetchUserRepositories() async throws -> [UserRepositoryModel] {
         let userReposEndpoint = UserRepositoriesEndpoint(username: username)
         return try await networkService.request(userReposEndpoint)
     }

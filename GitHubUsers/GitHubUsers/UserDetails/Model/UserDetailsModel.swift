@@ -6,13 +6,13 @@
 //
 
 final class UserDetailsModel: BaseUser {
-    let name: String
+    let name: String?
     let followers: Int
     let following: Int
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.followers = try container.decode(Int.self, forKey: .followers)
         self.following = try container.decode(Int.self, forKey: .following)
         try super.init(from: decoder)
