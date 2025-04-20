@@ -15,11 +15,17 @@ final class UserListCoordinator: Coordinating {
     }
     
     func start() {
-        let usersViewController = UserListFactory.make(goToUserScreen(_:))
+        let usersViewController = UserListFactory.make(navigationHandler: self)
         navigationController.setViewControllers([usersViewController], animated: true)
     }
-    
-    func goToUserScreen(_ user: BaseUser) {
-        // MARK: To do - implement user details screen
+}
+
+extension UserListCoordinator: UserSearchNavigationHandling {
+    func didSelectUser(_ username: String) {
+        let userDetailsCoordinator = UserDetailsCoordinator(
+            username: username,
+            navigationController: navigationController
+        )
+        userDetailsCoordinator.start()
     }
 }

@@ -11,10 +11,11 @@ final class UserListViewModel: UserListUseCase, RequestUseCase {
     private let networkService: Networking
     
     var onUserListLoaded: (([BaseUser]) -> Void)?
-    var onUserSelected: ((BaseUser) -> Void)?
     var onLoadingChanged: ((_ isLoading: Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
-        
+    
+    weak var navigationHandler: UserSearchNavigationHandling?
+    
     init(networkService: Networking) {
         self.networkService = networkService
     }
@@ -40,6 +41,6 @@ extension UserListViewModel  {
     }
     
     func didSelectUser(_ user: BaseUser) {
-        onUserSelected?(user)
+        navigationHandler?.didSelectUser(user.login)
     }
 }
