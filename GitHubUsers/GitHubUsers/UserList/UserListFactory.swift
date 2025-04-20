@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Swinject
 import NetworkKit
 
 final class UserListFactory {

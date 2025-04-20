@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import NetworkKit
 
 final class UserDetailsFactory {
     static func make(with username: String) -> UIViewController {
-        let viewModel = UserDetailsViewModel(username: username)
-        let viewController = UserDetailsViewController()
+        let resolver = DependencyContainer.shared.container
+        let viewModel = UserDetailsViewModel(
+            username: username,
+            networkService: resolver.resolve(Networking.self)
+        )
+        let viewController = UserDetailsViewController(viewModel: viewModel)
         return viewController
     }
 }
