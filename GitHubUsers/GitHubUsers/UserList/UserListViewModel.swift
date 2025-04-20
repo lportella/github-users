@@ -7,15 +7,20 @@
 
 import NetworkKit
 
-final class UserListViewModel {
+final class UserListViewModel: UserListUseCase {
     private let networkService: Networking
+    
+    var onUserListLoaded: (([BaseUser]) -> Void)?
+    var onLoadingChanged: (([BaseUser]) -> Void)?
+    var onError: (([ApiError]) -> Void)?
         
     init(networkService: Networking) {
         self.networkService = networkService
     }
 }
 
-extension UserListViewModel: UserListUseCase {
+// MARK: - UserListUseCase
+extension UserListViewModel  {
     func fetchUserList() {
         // - To do
     }
