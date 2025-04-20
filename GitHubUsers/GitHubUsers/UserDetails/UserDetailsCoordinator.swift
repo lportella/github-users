@@ -29,7 +29,8 @@ final class UserDetailsCoordinator: Coordinating {
 }
 
 extension UserDetailsCoordinator: UserDetailsNavigationHandling {
-    func didSelectRepository(with urlString: String) {
-        // MARK: display webview
+    func didSelectRepository(with url: URL) {
+        let repoWebView = WebViewController(url: url)
+        navigationController.pushViewController(repoWebView, animated: true)
     }
 }
