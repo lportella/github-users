@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-final class WebViewController: UIViewController, WKNavigationDelegate, ViewBuilding {
+final class WebViewController: UIViewController, ViewBuilding {
     private let url: URL
     
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -67,6 +67,26 @@ extension WebViewController {
     }
 }
 
+extension WebViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        activityIndicator.startAnimating()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        stopLoading()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+        stopLoading()
+        printContent(error.localizedDescription)
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
+        stopLoading()
+        printContent(error.localizedDescription)
+    }
+}
+
 private extension WebViewController {
     @objc func refreshWebView() {
         webView.reload()
@@ -75,5 +95,10 @@ private extension WebViewController {
     private func loadURL() {
         let request = URLRequest(url: url)
         webView.load(request)
+    }
+    
+    private func stopLoading() {
+        activityIndicator.stopAnimating()
+        refreshControl.endRefreshing()
     }
 }
