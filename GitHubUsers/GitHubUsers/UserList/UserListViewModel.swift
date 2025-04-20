@@ -11,7 +11,7 @@ final class UserListViewModel: UserListUseCase, RequestUseCase {
     private let networkService: Networking
     
     var onUserListLoaded: (([BaseUser]) -> Void)?
-    var onLoadingChanged: (([BaseUser]) -> Void)?
+    var onLoadingChanged: ((_ isLoading: Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
         
     init(networkService: Networking) {
@@ -23,7 +23,16 @@ final class UserListViewModel: UserListUseCase, RequestUseCase {
 extension UserListViewModel  {
     func fetchUserList() async {
         do {
-            let response: [BaseUser] = try await networkService.request(UserListEndpoint())        
+            await MainActor.run { [weak self] in
+                self?.onLoadingChanged?(true)
+            }
+            
+            let response: [BaseUser] = try await networkService.request(UserListEndpoint())
+            
+            await MainActor.run { [weak self] in
+                self?.onUserListLoaded?(response)
+                self?.onLoadingChanged?(false)
+            }
         } catch {
             print("Error: \(error)")
         }

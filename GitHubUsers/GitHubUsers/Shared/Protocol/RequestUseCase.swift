@@ -7,6 +7,6 @@
 import NetworkKit
 
 protocol RequestUseCase {
-    var onLoadingChanged: (([BaseUser]) -> Void)? { get set }
+    var onLoadingChanged: ((_ isLoading: Bool) -> Void)? { get set }
     var onError: (([ApiError]) -> Void)? { get set }
 }
