@@ -7,4 +7,5 @@
 
 protocol UserListDisplaying {
     func handleUserList(_ userList: [BaseUser])
+    func didSelectUser(_ user: BaseUser)
 }
