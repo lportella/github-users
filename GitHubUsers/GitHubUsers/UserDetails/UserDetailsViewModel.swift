@@ -5,6 +5,7 @@
 //  Created by Lucas Portella on 2025/04/20.
 //
 
+import Foundation
 import NetworkKit
 
 final class UserDetailsViewModel: UserDetailsUseCase, RequestUseCase {
@@ -56,6 +57,9 @@ extension UserDetailsViewModel {
     }
     
     func didSelectRepository(_ repository: UserRepositoryModel) {
-        navigationHandler?.didSelectRepository(with: repository.repoUrl)
+        guard let repoUrl = URL(string: repository.repoUrl) else {
+            return
+        }
+        navigationHandler?.didSelectRepository(with: repoUrl)
     }
 }

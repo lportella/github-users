@@ -29,7 +29,7 @@ final class UserDetailsCoordinator: Coordinating {
 }
 
 extension UserDetailsCoordinator: UserDetailsNavigationHandling {
-    func didSelectRepository(with urlString: String) {
+    func didSelectRepository(with url: URL) {
         // MARK: display webview
     }
 }
