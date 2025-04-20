@@ -8,10 +8,5 @@
 import Foundation
 
 enum NetworkConfig {
-    static var baseURL: URL {
-        guard let url = URL(string: "https://api.github.com") else {
-            fatalError("Invalid base URL")
-        }
-        return url
-    }
+    static var baseURL: String = "https://api.github.com"
 }

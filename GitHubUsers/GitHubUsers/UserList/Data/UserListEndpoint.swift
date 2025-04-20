@@ -8,13 +8,13 @@
 import NetworkKit
 import Foundation
 
-struct UserListEndpoint: EndpointData {
+struct UserListEndpoint: EndpointData {    
     var path: String {
         "/users"
     }
     
-    var method: String {
-        "GET"
+    var method: HTTPMethod {
+        .get
     }
     
     var queryItems: [URLQueryItem]? {

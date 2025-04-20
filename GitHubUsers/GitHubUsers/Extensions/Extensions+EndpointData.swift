@@ -9,8 +9,8 @@ import NetworkKit
 import Foundation
 
 extension EndpointData {
-    var url: URL {
-        return NetworkConfig.baseURL.appendingPathComponent(path)
+    var url: String {
+        NetworkConfig.baseURL
     }
     
     var headers: [String : String]? {
