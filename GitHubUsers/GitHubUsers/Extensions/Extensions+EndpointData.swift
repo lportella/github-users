@@ -8,7 +8,7 @@
 import NetworkKit
 import Foundation
 
-extension EndpointData {
+extension EndpointData {    
     var url: String {
         NetworkConfig.baseURL
     }

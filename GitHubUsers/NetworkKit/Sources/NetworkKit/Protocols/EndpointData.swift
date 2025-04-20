@@ -8,6 +8,7 @@
 import Foundation
 
 public protocol EndpointData {
+    var scheme: String { get }
     var url: String { get }
     var path: String { get }
     var method: HTTPMethod { get }

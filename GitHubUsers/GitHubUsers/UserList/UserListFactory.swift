@@ -12,7 +12,8 @@ import NetworkKit
 final class UserListFactory {
     static func make() -> UIViewController {
         let resolver = DependencyContainer.shared.container
-        let viewModel = UserListViewModel(networkService: resolver.resolve(Networking.self))
-        return UserListViewController()
+        let userListViewModel = UserListViewModel(networkService: resolver.resolve(Networking.self))
+        let viewController = UserListViewController(viewModel: userListViewModel)
+        return viewController
     }
 }

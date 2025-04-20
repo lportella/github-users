@@ -7,7 +7,7 @@
 
 import NetworkKit
 
-final class UserListViewModel: UserListUseCase {
+final class UserListViewModel: UserListUseCase, RequestUseCase {
     private let networkService: Networking
     
     var onUserListLoaded: (([BaseUser]) -> Void)?
@@ -21,7 +21,12 @@ final class UserListViewModel: UserListUseCase {
 
 // MARK: - UserListUseCase
 extension UserListViewModel  {
-    func fetchUserList() {
-        // - To do
+    func fetchUserList() async {
+        do {
+            let response: [BaseUser] = try await networkService.request(UserListEndpoint())
+            print(response)
+        } catch {
+            print("Error: \(error)")
+        }
     }
 }

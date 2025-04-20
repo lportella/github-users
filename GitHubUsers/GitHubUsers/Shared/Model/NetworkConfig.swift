@@ -8,5 +8,5 @@
 import Foundation
 
 enum NetworkConfig {
-    static var baseURL: String = "https://api.github.com"
+    static var baseURL: String = "api.github.com"
 }

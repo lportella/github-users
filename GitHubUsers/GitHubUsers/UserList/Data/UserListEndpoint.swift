@@ -8,7 +8,7 @@
 import NetworkKit
 import Foundation
 
-struct UserListEndpoint: EndpointData {    
+struct UserListEndpoint: EndpointData {
     var path: String {
         "/users"
     }

@@ -23,7 +23,7 @@ class CoreNetworking {
         } catch let urlError as URLError {
             throw ApiError.networkError(urlError)
         } catch {
-            throw ApiError.unknown
+            throw error
         }
 
         guard let httpResponse = response as? HTTPURLResponse else {
