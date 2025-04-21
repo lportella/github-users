@@ -58,6 +58,7 @@ public class InfoCardView: UICollectionViewCell {
     lazy var verticalStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -65,7 +66,51 @@ public class InfoCardView: UICollectionViewCell {
     lazy var horizontalStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViewBuilding()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        title.text = nil
+        subtitle.text = nil
+        leftDetail.text = nil
+        rightDetail.text = nil
+    }
+}
+
+extension InfoCardView: ViewBuilding {
+    func setupViews() {
+        horizontalStack.addArrangedSubview(leftDetail)
+        horizontalStack.addArrangedSubview(rightDetail)
+        verticalStack.addArrangedSubview(title)
+        verticalStack.addArrangedSubview(subtitle)
+        verticalStack.addArrangedSubview(horizontalStack)
+        containerView.addSubview(verticalStack)
+        contentView.addSubview(containerView)
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            verticalStack.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            verticalStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12),
+            verticalStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            verticalStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14)
+        ])
+    }
 }
