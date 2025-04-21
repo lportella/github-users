@@ -9,7 +9,7 @@ import UIKit
 import NetworkKit
 
 final class UserListFactory {
-    static func make(navigationHandler: UserSearchNavigationHandling) -> UIViewController {
+    static func make(navigationHandler: UserListNavigationHandling) -> UIViewController {
         let resolver = DependencyContainer.shared.container
         let userListViewModel = UserListViewModel(networkService: resolver.resolve(Networking.self))
         let viewController = UserListViewController(viewModel: userListViewModel)
