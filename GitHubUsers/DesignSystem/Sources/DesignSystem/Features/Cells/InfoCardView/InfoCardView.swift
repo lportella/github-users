@@ -114,3 +114,12 @@ extension InfoCardView: ViewBuilding {
         ])
     }
 }
+
+public extension InfoCardView {
+    func configure(with item: Item) {
+        title.text = item.title
+        subtitle.text = item.subtitle
+        rightDetail.text = item.rightDetail
+        leftDetail.text = item.leftDetail
+    }
+}
