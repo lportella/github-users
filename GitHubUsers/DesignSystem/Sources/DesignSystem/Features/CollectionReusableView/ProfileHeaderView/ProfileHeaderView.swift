@@ -68,4 +68,30 @@ public final class ProfileHeaderView: UICollectionReusableView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViewBuilding()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ProfileHeaderView: ViewBuilding {
+    func setupViews() {
+        addSubview(stackView)
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            avatar.widthAnchor.constraint(equalToConstant: ImageSize.large.value),
+            avatar.heightAnchor.constraint(equalToConstant: ImageSize.large.value),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: CustomSize.base6.value),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -CustomSize.base6.value),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+    }
 }
