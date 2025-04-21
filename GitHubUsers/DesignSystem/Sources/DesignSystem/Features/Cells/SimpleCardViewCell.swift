@@ -14,7 +14,7 @@ class SimpleCardViewCell: UICollectionViewCell {
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = 14
-        container.backgroundColor = UIColor(red: 240/255.0, green: 241/255.0, blue: 246/255.0, alpha: 1.0)
+        container.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
@@ -32,7 +32,7 @@ class SimpleCardViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 17/255.0, green: 20/255.0, blue: 31/255.0, alpha: 1.0)
+        label.textColor = UIColor(named: CustomColors.primaryBlack.name)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
