@@ -16,7 +16,7 @@ final class UserDetailsViewModel: UserDetailsUseCase, RequestUseCase {
     var onLoadingChanged: ((Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
     
-    weak var navigationHandler: UserDetailsNavigationHandling?
+    var navigationHandler: UserDetailsNavigationHandling?
     
     init(username: String, networkService: Networking) {
         self.username = username

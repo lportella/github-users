@@ -14,7 +14,7 @@ final class UserListViewModel: UserListUseCase, RequestUseCase {
     var onLoadingChanged: ((_ isLoading: Bool) -> Void)?
     var onError: (([ApiError]) -> Void)?
     
-    weak var navigationHandler: UserListNavigationHandling?
+    var navigationHandler: UserListNavigationHandling?
     
     init(networkService: Networking) {
         self.networkService = networkService
