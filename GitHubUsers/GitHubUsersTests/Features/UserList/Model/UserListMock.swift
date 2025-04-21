@@ -27,9 +27,7 @@ extension BaseUser {
             guard let data = baseUserfakeJSON.data(using: .utf8) else {
                 fatalError("Could not convert fake JSON to data")
             }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode([Self].self, from: data)
+            return try JSONDecoder().decode([Self].self, from: data)
         } catch {
             fatalError("Failed to decode with fake JSON. \(error)")
         }

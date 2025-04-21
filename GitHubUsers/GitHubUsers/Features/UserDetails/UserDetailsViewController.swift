@@ -41,6 +41,6 @@ extension UserDetailsViewController: UserDetailsDisplaying {
     }
     
     func didSelectRepository(_ repository: UserRepositoryModel) {
-        
+        viewModel.didSelectRepository(repository)
     }
 }

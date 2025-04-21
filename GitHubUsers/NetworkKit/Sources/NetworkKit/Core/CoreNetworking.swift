@@ -36,7 +36,6 @@ class CoreNetworking {
 
         do {
             let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
             NSLog(String(data: data, encoding: .utf8) ?? "Cannot convert data")
             return try decoder.decode(T.self, from: data)
         } catch {

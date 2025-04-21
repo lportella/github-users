@@ -26,7 +26,7 @@ class BaseUser: Decodable, Equatable {
     private enum CodingKeys: String, CodingKey {
         case id
         case login
-        case avatarUrl
+        case avatarUrl = "avatar_url"
     }
 
     static func == (lhs: BaseUser, rhs: BaseUser) -> Bool {
