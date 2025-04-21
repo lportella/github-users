@@ -8,7 +8,7 @@
 import Foundation
 
 public enum TextSize: CGFloat {
-    case small = 12
+    case small = 14
     case medium = 16
     case large = 26
     
