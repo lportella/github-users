@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F944C6162DB3226B00436231 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F944C6152DB3226B00436231 /* Swinject */; };
 		F9A6788B2DB2EE68008D4041 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = F9A6788A2DB2EE68008D4041 /* NetworkKit */; };
+		F9BC01972DB6D9300092A7FE /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = F9BC01962DB6D9300092A7FE /* DesignSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		F959B3B02DB29B620022C1AB /* GitHubUsersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubUsersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F959B3BA2DB29B620022C1AB /* GitHubUsersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubUsersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9A678882DB2EE4E008D4041 /* NetworkKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkKit; sourceTree = "<group>"; };
+		F9BC01952DB6D90D0092A7FE /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9BC01972DB6D9300092A7FE /* DesignSystem in Frameworks */,
 				F9A6788B2DB2EE68008D4041 /* NetworkKit in Frameworks */,
 				F944C6162DB3226B00436231 /* Swinject in Frameworks */,
 			);
@@ -96,6 +99,7 @@
 		F959B3912DB29B620022C1AB = {
 			isa = PBXGroup;
 			children = (
+				F9BC01952DB6D90D0092A7FE /* DesignSystem */,
 				F9A678882DB2EE4E008D4041 /* NetworkKit */,
 				F959B39C2DB29B620022C1AB /* GitHubUsers */,
 				F959B3B32DB29B620022C1AB /* GitHubUsersTests */,
@@ -144,6 +148,7 @@
 			packageProductDependencies = (
 				F9A6788A2DB2EE68008D4041 /* NetworkKit */,
 				F944C6152DB3226B00436231 /* Swinject */,
+				F9BC01962DB6D9300092A7FE /* DesignSystem */,
 			);
 			productName = GitHubUsers;
 			productReference = F959B39A2DB29B620022C1AB /* GitHubUsers.app */;
@@ -616,6 +621,10 @@
 		F9A6788A2DB2EE68008D4041 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
+		};
+		F9BC01962DB6D9300092A7FE /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
