@@ -13,7 +13,7 @@ import UIKit
 class SimpleCardViewCell: UICollectionViewCell {
     lazy var containerView: UIView = {
         let container = UIView()
-        container.layer.cornerRadius = 14
+        container.layer.cornerRadius = CustomSize.base4.value
         container.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
@@ -23,7 +23,7 @@ class SimpleCardViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 24
+        imageView.layer.cornerRadius = ImageSize.medium.cornerRadius
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -31,10 +31,47 @@ class SimpleCardViewCell: UICollectionViewCell {
     lazy var text: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .bold)
         label.textColor = UIColor(named: CustomColors.primaryBlack.name)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViewBuilding()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension SimpleCardViewCell: ViewBuilding {
+    func setupViews() {
+        containerView.addSubview(imageView)
+        containerView.addSubview(text)
+        addSubview(containerView)
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: topAnchor, constant: CustomSize.base1.value),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CustomSize.base1.value),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CustomSize.base1.value),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CustomSize.base1.value),
+            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CustomSize.base3.value),
+            imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: ImageSize.medium.value),
+            imageView.heightAnchor.constraint(equalToConstant: ImageSize.medium.value),
+            
+            text.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CustomSize.base3.value),
+            text.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: CustomSize.base3.value),
+            text.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -CustomSize.base2.value),
+            text.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -CustomSize.base3.value)
+        ])
+    }
 }
