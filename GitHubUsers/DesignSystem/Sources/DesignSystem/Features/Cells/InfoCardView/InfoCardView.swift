@@ -7,6 +7,11 @@
 
 import UIKit
 
+/// This reusable cell is a card displaying:
+/// -    title: first text with bold weight
+/// -    subtitle: second text, below title with a slightly brighter color and regular weight
+/// -    leftDetail: horizontal text on the left, with a light color
+/// -    rightDetail: horizontal text on the right, the same color as subtitle but with a light weight
 public class InfoCardView: UICollectionViewCell {
     lazy var containerView: UIView = {
         let container = UIView()
