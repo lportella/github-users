@@ -19,6 +19,6 @@ struct UserRepositoryModel: Decodable, Equatable {
         case description
         case fork
         case language
-        case stargazersCount
+        case stargazersCount = "stargazers_count"
     }
 }
