@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 /// This reusable cell is a simple cell displaying:
 /// -    imageView: one centered image
 /// -    text: a label centered below the image
 public class SimpleCardViewCell: UICollectionViewCell {
+    private var currentImageURL: URL?
+    
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = CustomSize.base4.value
@@ -28,7 +31,7 @@ public class SimpleCardViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var text: UILabel = {
+    lazy var cardLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .bold)
@@ -46,12 +49,19 @@ public class SimpleCardViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.sd_cancelCurrentImageLoad()
+        imageView.image = nil
+        cardLabel.text = nil
+    }
 }
 
 extension SimpleCardViewCell: ViewBuilding {
     func setupViews() {
         containerView.addSubview(imageView)
-        containerView.addSubview(text)
+        containerView.addSubview(cardLabel)
         addSubview(containerView)
     }
     
@@ -68,16 +78,30 @@ extension SimpleCardViewCell: ViewBuilding {
             imageView.widthAnchor.constraint(equalToConstant: ImageSize.medium.value),
             imageView.heightAnchor.constraint(equalToConstant: ImageSize.medium.value),
             
-            text.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CustomSize.base3.value),
-            text.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: CustomSize.base3.value),
-            text.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -CustomSize.base2.value),
-            text.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -CustomSize.base3.value)
+            cardLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CustomSize.base3.value),
+            cardLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: CustomSize.base3.value),
+            cardLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -CustomSize.base2.value),
+            cardLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -CustomSize.base3.value)
         ])
     }
 }
 
 public extension SimpleCardViewCell {
     func configure(with item: Item) {
-        // MARK: To do
+        configureLabel(with: item.text)
+        configureImageView(with: item.imageURL, item.placeholderImage)
+    }
+}
+
+private extension SimpleCardViewCell {
+    func configureLabel(with text: String) {
+        cardLabel.isHidden = cardLabel.text?.isEmpty == true
+        cardLabel.text = text
+    }
+    
+    func configureImageView(with imageURL: URL?, _ placeholderImage: UIImage?) {
+        imageView.sd_cancelCurrentImageLoad()
+        currentImageURL = imageURL
+        imageView.sd_setImage(with: imageURL, placeholderImage: placeholderImage)
     }
 }
