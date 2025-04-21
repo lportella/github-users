@@ -20,7 +20,7 @@ final class UserListCoordinator: Coordinating {
     }
 }
 
-extension UserListCoordinator: UserSearchNavigationHandling {
+extension UserListCoordinator: UserListNavigationHandling {
     func didSelectUser(_ username: String) {
         let userDetailsCoordinator = UserDetailsCoordinator(
             username: username,
