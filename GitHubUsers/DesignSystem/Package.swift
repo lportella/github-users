@@ -13,9 +13,18 @@ let package = Package(
             name: "DesignSystem",
             targets: ["DesignSystem"]),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/SDWebImage/SDWebImage.git",
+            from: "5.15.0"
+        ),
+    ],
     targets: [
         .target(
             name: "DesignSystem",
+            dependencies: [
+                .product(name: "SDWebImage", package: "SDWebImage")
+            ],
             resources: [
                 .process("Resources/Colors.xcassets")
             ]

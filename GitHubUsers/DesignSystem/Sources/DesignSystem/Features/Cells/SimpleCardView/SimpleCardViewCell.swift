@@ -10,7 +10,7 @@ import UIKit
 /// This reusable cell is a simple cell displaying:
 /// -    imageView: one centered image
 /// -    text: a label centered below the image
-class SimpleCardViewCell: UICollectionViewCell {
+public class SimpleCardViewCell: UICollectionViewCell {
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = CustomSize.base4.value
@@ -73,5 +73,11 @@ extension SimpleCardViewCell: ViewBuilding {
             text.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -CustomSize.base2.value),
             text.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -CustomSize.base3.value)
         ])
+    }
+}
+
+public extension SimpleCardViewCell {
+    func configure(with item: Item) {
+        // MARK: To do
     }
 }

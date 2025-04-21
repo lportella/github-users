@@ -1,6 +1,15 @@
 {
-  "originHash" : "4fc0cf6d210785ee1516d50e4e812ba2cd3d33e145654d7cc11a161a5d11c9db",
+  "originHash" : "06bacae875f6ace08048205abbee3cb1cf10f01c60390e780b276310dba7ff87",
   "pins" : [
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
+        "version" : "5.21.0"
+      }
+    },
     {
       "identity" : "swinject",
       "kind" : "remoteSourceControl",
