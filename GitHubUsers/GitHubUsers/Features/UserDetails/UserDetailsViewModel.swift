@@ -5,6 +5,7 @@
 //  Created by Lucas Portella on 2025/04/20.
 //
 
+import DesignSystem
 import Foundation
 import NetworkKit
 
@@ -14,7 +15,6 @@ final class UserDetailsViewModel: UserDetailsUseCase, RequestUseCase {
     
     var onFullUserDetailsLoaded: ((UserDetailsModel, [UserRepositoryModel]) -> Void)?
     var onLoadingChanged: ((Bool) -> Void)?
-    var onError: (([ApiError]) -> Void)?
     
     var navigationHandler: UserDetailsNavigationHandling?
     
@@ -44,6 +44,7 @@ extension UserDetailsViewModel {
         } catch {
             await MainActor.run { [weak self] in
                 self?.onLoadingChanged?(false)
+                self?.navigationHandler?.displayFeedbackSystem(GenericFeedback.genericFeedbackItem)
             }
             print("Error: \(error)")
         }

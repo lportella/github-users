@@ -5,14 +5,14 @@
 //  Created by Lucas Portella on 2025/04/18.
 //
 
+import DesignSystem
 import NetworkKit
 
-final class UserListViewModel: UserListUseCase, RequestUseCase {
+final class UserListViewModel: UserListUseCase, RequestUseCase {    
     private let networkService: Networking
     
     var onUserListLoaded: (([BaseUser]) -> Void)?
     var onLoadingChanged: ((_ isLoading: Bool) -> Void)?
-    var onError: (([ApiError]) -> Void)?
     
     var navigationHandler: UserListNavigationHandling?
     
@@ -38,6 +38,7 @@ extension UserListViewModel  {
         } catch {
             await MainActor.run { [weak self] in
                 self?.onLoadingChanged?(false)
+                self?.navigationHandler?.displayFeedbackSystem(GenericFeedback.genericFeedbackItem)
             }
             print("Error: \(error)")
         }

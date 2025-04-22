@@ -15,8 +15,9 @@ public enum CustomSize: CGFloat {
     case base4 = 12
     case base5 = 14
     case base6 = 16
-    case base7 = 32
-    case base8 = 48
+    case base7 = 24
+    case base8 = 32
+    case base9 = 48
     
     public var value: CGFloat {
         return self.rawValue
