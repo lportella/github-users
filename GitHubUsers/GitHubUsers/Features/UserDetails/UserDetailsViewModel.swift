@@ -42,6 +42,9 @@ extension UserDetailsViewModel {
                 self?.onLoadingChanged?(false)
             }
         } catch {
+            await MainActor.run { [weak self] in
+                self?.onLoadingChanged?(false)
+            }
             print("Error: \(error)")
         }
     }
