@@ -5,18 +5,13 @@
 //  Created by Lucas Portella on 2025/04/20.
 //
 
+import DesignSystem
 import UIKit
 import WebKit
 
 final class WebViewController: UIViewController, ViewBuilding {
     private let url: URL
-    
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        return activityIndicator
-    }()
+    private let loadingView = LoadingView()
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -51,7 +46,6 @@ final class WebViewController: UIViewController, ViewBuilding {
 extension WebViewController {
     func setupViews() {
         view.addSubview(webView)
-        view.addSubview(activityIndicator)
     }
     
     func setupConstraints() {
@@ -60,16 +54,13 @@ extension WebViewController {
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }
 
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        activityIndicator.startAnimating()
+        loadingView.start(in: self)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -78,12 +69,10 @@ extension WebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
         stopLoading()
-        printContent(error.localizedDescription)
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
         stopLoading()
-        printContent(error.localizedDescription)
     }
 }
 
@@ -98,7 +87,7 @@ private extension WebViewController {
     }
     
     private func stopLoading() {
-        activityIndicator.stopAnimating()
+        loadingView.stop()
         refreshControl.endRefreshing()
     }
 }
