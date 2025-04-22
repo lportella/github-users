@@ -12,7 +12,7 @@ import UIKit
 /// -    subtitle: second text, below title with a slightly brighter color and regular weight
 /// -    leftDetail: horizontal text on the left, with a light color
 /// -    rightDetail: horizontal text on the right, the same color as subtitle but with a light weight
-public class InfoCardView: UICollectionViewCell {
+public final class InfoCardView: UICollectionViewCell {
     static public let reuseIdentifier = "InfoCard"
     
     lazy var containerView: UIView = {
