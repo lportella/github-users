@@ -5,9 +5,12 @@
 //  Created by Lucas Portella on 2025/04/18.
 //
 
+import DesignSystem
 import UIKit
 
 final class UserListViewController: UIViewController {
+    var loadingView: DesignSystem.ViewLoading = LoadingView()
+    
     private let viewModel: UserListUseCase
     
     init(viewModel: UserListUseCase) {
@@ -20,7 +23,6 @@ final class UserListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .red
         Task {
             await viewModel.fetchUserList()
         }
@@ -29,8 +31,11 @@ final class UserListViewController: UIViewController {
 
 extension UserListViewController: ViewControllerDisplaying {
     func handleLoading(_ isLoading: Bool) {
-        print("is loading: \(isLoading)")
-        // MARK: To do - implement loading view
+        if isLoading {
+            loadingView.start(in: self)
+        } else {
+            loadingView.stop()
+        }
     }
 }
 

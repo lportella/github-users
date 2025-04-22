@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class LoadingView: UIView {
+public final class LoadingView: UIView, ViewLoading {
     private let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .large
@@ -39,7 +39,7 @@ extension LoadingView: ViewBuilding {
     }
 }
 
-extension LoadingView: ViewLoading {
+extension LoadingView {
     public func start(in viewController: UIViewController) {
         guard superview == nil else {
             return
