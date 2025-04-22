@@ -46,6 +46,7 @@ final class UserListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupViewBuilding()
         setupCollectionViewDataSource()
         Task {
