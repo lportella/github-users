@@ -50,7 +50,6 @@ final class UserDetailsViewController: UIViewController {
 
 extension UserDetailsViewController: ViewBuilding {
     func setupViews() {
-        view.backgroundColor = CustomColors.primaryBackground.color
         collectionView.register(
             InfoCardView.self,
             forCellWithReuseIdentifier: InfoCardView.reuseIdentifier
@@ -65,6 +64,11 @@ extension UserDetailsViewController: ViewBuilding {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
+        collectionView.register(
+            EmptyView.self,
+            forCellWithReuseIdentifier: EmptyView.reuseIdentifier
+        )
+        view.backgroundColor = CustomColors.primaryBackground.color
         view.addSubview(collectionView)
     }
     
@@ -188,31 +192,15 @@ private extension UserDetailsViewController {
     func setupCollectionViewRepoDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, RepositoryItem>(
             collectionView: collectionView
-        ) {
-            collectionView,
-            indexPath,
-            item in
+        ) { [weak self] collectionView, indexPath, item in
             switch item {
             case .repository(let repo):
                 if let repo {
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: InfoCardView.reuseIdentifier,
-                        for: indexPath
-                    ) as? InfoCardView else {
-                        return UICollectionViewCell()
-                    }
-                    cell.configure(
-                        with: .init(
-                            title: repo.name,
-                            subtitle: repo.description,
-                            leftDetail: repo.language,
-                            rightDetail: String(repo.stargazersCount)
-                        )
-                    )
+                    let cell = self?.createRepositoryCell(for: indexPath, with: repo, collectionView)
                     return cell
                 } else {
-                    // MARK: To do - Create empty cell
-                    return UICollectionViewCell()
+                    let cell = self?.createEmptyViewCell(for: indexPath, collectionView)
+                    return cell
                 }
             }
         }
@@ -277,5 +265,46 @@ private extension UserDetailsViewController {
         }
         
         dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func createRepositoryCell(
+        for indexPath: IndexPath,
+        with repository: UserRepositoryModel,
+        _ collectionView: UICollectionView
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: InfoCardView.reuseIdentifier,
+            for: indexPath
+        ) as? InfoCardView else {
+            fatalError("InfoCardView not found")
+        }
+        cell.configure(
+            with: .init(
+                title: repository.name,
+                subtitle: repository.description,
+                leftDetail: repository.language,
+                rightDetail: String(repository.stargazersCount)
+            )
+        )
+        return cell
+    }
+    
+    private func createEmptyViewCell(
+        for indexPath: IndexPath,
+        _ collectionView: UICollectionView
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: EmptyView.reuseIdentifier,
+            for: indexPath
+        ) as? EmptyView else {
+            fatalError("Fallback cell not found")
+        }
+        cell.configure(
+            with: .init(
+                message: "This user has no repositores.",
+                image: UIImage(systemName: "tray")
+            )
+        )
+        return cell
     }
 }
