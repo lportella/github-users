@@ -57,7 +57,10 @@ final class UserListViewController: UIViewController {
 extension UserListViewController: ViewBuilding {
     func setupViews() {
         view.backgroundColor = CustomColors.primaryBackground.color
-        collectionView.register(SimpleCardViewCell.self, forCellWithReuseIdentifier: "SimpleCard")
+        collectionView.register(
+            SimpleCardViewCell.self,
+            forCellWithReuseIdentifier: SimpleCardViewCell.reuseIdentifier
+        )
         view.addSubview(collectionView)
     }
     
@@ -138,7 +141,7 @@ private extension UserListViewController {
             collectionView: collectionView
         ) { collectionView, indexPath, item -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "SimpleCard",
+                withReuseIdentifier: SimpleCardViewCell.reuseIdentifier,
                 for: indexPath
             ) as? SimpleCardViewCell else {
                 return UICollectionViewCell()
@@ -150,8 +153,6 @@ private extension UserListViewController {
             ))
             return cell
         }
-        
-        // MARK: To do - maybe add a footer loading for infinity loading
     }
     
     private func applySnapshot(with items: [BaseUser]) {

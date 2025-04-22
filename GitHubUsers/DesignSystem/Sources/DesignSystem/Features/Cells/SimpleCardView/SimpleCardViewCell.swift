@@ -12,7 +12,7 @@ import SDWebImage
 /// -    imageView: one centered image
 /// -    text: a label centered below the image
 public class SimpleCardViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "SimpleCard"
+    static public let reuseIdentifier = "SimpleCard"
     
     private var currentImageURL: URL?
     
