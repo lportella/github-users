@@ -54,6 +54,7 @@ public class SimpleCardViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.sd_cancelCurrentImageLoad()
         imageView.image = nil
+        currentImageURL = nil
         cardLabel.text = nil
     }
 }
