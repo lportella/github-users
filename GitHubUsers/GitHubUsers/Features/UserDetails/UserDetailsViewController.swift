@@ -84,12 +84,10 @@ extension UserDetailsViewController: UICollectionViewDelegate {
 
 extension UserDetailsViewController: ViewControllerDisplaying {
     func handleLoading(_ isLoading: Bool) {
-        func handleLoading(_ isLoading: Bool) {
-            if isLoading {
-                loadingView.start(in: self)
-            } else {
-                loadingView.stop()
-            }
+        if isLoading {
+            loadingView.start(in: self)
+        } else {
+            loadingView.stop()
         }
     }
 }
