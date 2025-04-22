@@ -71,7 +71,7 @@ extension UserListViewController: UserListDisplaying {
 }
 
 private extension UserListViewController {
-    @objc func onPullToRefresh() {
-        viewModel.fetchUserList()
+    @objc func onPullToRefresh() async {
+        await viewModel.fetchUserList()
     }
 }
