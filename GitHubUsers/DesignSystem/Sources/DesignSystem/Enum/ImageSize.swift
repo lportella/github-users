@@ -10,7 +10,7 @@ import Foundation
 public enum ImageSize: CGFloat {
     case small = 28
     case medium = 48
-    case large = 68
+    case large = 90
     
     public var value: CGFloat {
         return self.rawValue
