@@ -32,8 +32,8 @@ extension UserListViewModel  {
             let response: [BaseUser] = try await networkService.request(UserListEndpoint())
             
             await MainActor.run { [weak self] in
-                self?.onUserListLoaded?(response)
                 self?.onLoadingChanged?(false)
+                self?.onUserListLoaded?(response)
             }
         } catch {
             print("Error: \(error)")

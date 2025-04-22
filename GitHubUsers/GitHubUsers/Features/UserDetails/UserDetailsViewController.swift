@@ -5,9 +5,12 @@
 //  Created by Lucas Portella on 2025/04/20.
 //
 
+import DesignSystem
 import UIKit
 
 final class UserDetailsViewController: UIViewController {
+    var loadingView: DesignSystem.ViewLoading = LoadingView()
+    
     private let viewModel: UserDetailsViewModel
     
     init(viewModel: UserDetailsViewModel) {
@@ -29,8 +32,13 @@ final class UserDetailsViewController: UIViewController {
 
 extension UserDetailsViewController: ViewControllerDisplaying {
     func handleLoading(_ isLoading: Bool) {
-        print("is loading: \(isLoading)")
-        // MARK: To do - implement loading view
+        func handleLoading(_ isLoading: Bool) {
+            if isLoading {
+                loadingView.start(in: self)
+            } else {
+                loadingView.stop()
+            }
+        }
     }
 }
 
