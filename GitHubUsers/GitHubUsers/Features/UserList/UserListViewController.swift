@@ -18,8 +18,15 @@ final class UserListViewController: UIViewController {
         let collectionView = UICollectionView()
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
+        collectionView.refreshControl = refreshControl
         collectionView.delegate = self
         return collectionView
+    }()
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
+        return refreshControl
     }()
     
     init(viewModel: UserListUseCase) {
@@ -60,5 +67,11 @@ extension UserListViewController: UserListDisplaying {
     
     func didSelectUser(_ user: BaseUser) {
         viewModel.didSelectUser(user)
+    }
+}
+
+private extension UserListViewController {
+    @objc func onPullToRefresh() {
+        viewModel.fetchUserList()
     }
 }
