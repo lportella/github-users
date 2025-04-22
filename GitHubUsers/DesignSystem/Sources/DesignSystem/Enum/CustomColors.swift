@@ -11,6 +11,7 @@ public enum CustomColors: String {
     case primaryBackground = "primaryBackground"
     case secondaryBackground = "secondaryBackground"
     case primaryBlack = "customBlack"
+    case customBlue = "customBlue"
     
     public var name: String {
         return self.rawValue

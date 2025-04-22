@@ -11,6 +11,8 @@ public enum ImageSize: CGFloat {
     case small = 28
     case medium = 48
     case large = 90
+    case feedbackMediumImage = 120
+    case feedbackLargeImage = 200
     
     public var value: CGFloat {
         return self.rawValue
