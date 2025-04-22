@@ -16,7 +16,7 @@ public class InfoCardView: UICollectionViewCell {
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = CustomSize.base4.value
-        container.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
+        container.backgroundColor = CustomColors.secondaryBackground.color
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()

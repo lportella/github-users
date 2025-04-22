@@ -12,12 +12,14 @@ import SDWebImage
 /// -    imageView: one centered image
 /// -    text: a label centered below the image
 public class SimpleCardViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "SimpleCard"
+    
     private var currentImageURL: URL?
     
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = CustomSize.base4.value
-        container.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
+        container.backgroundColor = CustomColors.secondaryBackground.color
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
@@ -74,12 +76,12 @@ extension SimpleCardViewCell: ViewBuilding {
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CustomSize.base1.value),
             containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CustomSize.base3.value),
+            imageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CustomSize.base4.value),
             imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: ImageSize.medium.value),
             imageView.heightAnchor.constraint(equalToConstant: ImageSize.medium.value),
             
-            cardLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CustomSize.base3.value),
+            cardLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CustomSize.base4.value),
             cardLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: CustomSize.base3.value),
             cardLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -CustomSize.base2.value),
             cardLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -CustomSize.base3.value)

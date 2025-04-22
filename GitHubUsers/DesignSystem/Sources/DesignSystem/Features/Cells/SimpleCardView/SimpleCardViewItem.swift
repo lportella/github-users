@@ -12,5 +12,10 @@ public extension SimpleCardViewCell {
         let text: String
         let imageURL: URL?
         let placeholderImage: UIImage? = nil
+        
+        public init(text: String, imageURL: URL?) {
+            self.text = text
+            self.imageURL = imageURL
+        }
     }
 }
