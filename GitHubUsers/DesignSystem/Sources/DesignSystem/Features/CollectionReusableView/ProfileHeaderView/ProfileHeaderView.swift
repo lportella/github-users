@@ -62,7 +62,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
     
     lazy var detailsStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 6
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +111,7 @@ extension ProfileHeaderView: ViewBuilding {
     }
 }
 
-extension ProfileHeaderView {
+public extension ProfileHeaderView {
     func configure(with item: Item) {
         configureAvatar(with: item.avatarURL, item.placeholderImage)
         configureUsernameLabel(with: item.username)
