@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 public final class ProfileHeaderView: UICollectionReusableView {
-    static let reuseIdentifier = "HeaderView"
+    static public let reuseIdentifier = "HeaderView"
     private var currentImageURL: URL?
     
     lazy var avatar: UIImageView = {

@@ -5,7 +5,7 @@
 //  Created by Lucas Portella on 2025/04/20.
 //
 
-struct UserRepositoryModel: Decodable, Equatable {
+struct UserRepositoryModel: Decodable, Equatable, Hashable {
     let name: String
     let repoUrl: String
     let description: String?
