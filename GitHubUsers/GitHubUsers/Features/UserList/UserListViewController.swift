@@ -13,6 +13,15 @@ final class UserListViewController: UIViewController {
     
     private let viewModel: UserListUseCase
     
+    // MARK: View Components
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = UIColor(named: CustomColors.primaryBackground.name)
+        collectionView.delegate = self
+        return collectionView
+    }()
+    
     init(viewModel: UserListUseCase) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,6 +36,10 @@ final class UserListViewController: UIViewController {
             await viewModel.fetchUserList()
         }
     }
+}
+
+extension UserListViewController: UICollectionViewDelegate {
+    // MARK: To do - implement collection view delegates
 }
 
 extension UserListViewController: ViewControllerDisplaying {
