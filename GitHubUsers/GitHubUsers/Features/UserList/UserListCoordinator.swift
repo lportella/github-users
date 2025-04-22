@@ -5,6 +5,7 @@
 //  Created by Lucas Portella on 2025/04/18.
 //
 
+import DesignSystem
 import UIKit
 
 final class UserListCoordinator: Coordinating {
@@ -27,5 +28,12 @@ extension UserListCoordinator: UserListNavigationHandling {
             navigationController: navigationController
         )
         userDetailsCoordinator.start()
+    }
+    
+    func displayFeedbackSystem(_ feedbackItem: FeedbackViewItem) {
+        typealias FeedbackViewType = (FeedbackViewDisplaying & UIViewController)
+        let feedbackViewController = FeedbackViewController() as FeedbackViewType
+        feedbackViewController.configure(with: feedbackItem)
+        navigationController.present(feedbackViewController, animated: true)
     }
 }
