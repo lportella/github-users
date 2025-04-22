@@ -5,7 +5,7 @@
 //  Created by Lucas Portella on 2025/04/19.
 //
 
-class BaseUser: Decodable, Equatable {
+class BaseUser: Decodable, Equatable, Hashable {
     let id: Int
     let login: String
     let avatarUrl: String
@@ -33,5 +33,11 @@ class BaseUser: Decodable, Equatable {
         lhs.id == rhs.id &&
         lhs.login == rhs.login &&
         lhs.avatarUrl == rhs.avatarUrl
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(login)
+        hasher.combine(avatarUrl)
     }
 }
