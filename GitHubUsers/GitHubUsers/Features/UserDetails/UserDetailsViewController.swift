@@ -79,7 +79,15 @@ extension UserDetailsViewController: ViewBuilding {
 }
 
 extension UserDetailsViewController: UICollectionViewDelegate {
-    // MARK: Implement delegate for repository clicked
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard
+            case let .repository(repoItem) = dataSource?.itemIdentifier(for: indexPath),
+            let selectedRepository = repoItem
+        else {
+            return
+        }
+        viewModel.didSelectRepository(selectedRepository)
+    }
 }
 
 extension UserDetailsViewController: ViewControllerDisplaying {

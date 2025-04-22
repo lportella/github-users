@@ -76,7 +76,6 @@ extension UserListViewController: ViewBuilding {
 }
 
 extension UserListViewController: UICollectionViewDelegate {
-    // MARK: To do - implement collection view delegates
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedUser = dataSource?.itemIdentifier(for: indexPath) else {
             return
