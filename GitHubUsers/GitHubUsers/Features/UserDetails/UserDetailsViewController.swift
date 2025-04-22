@@ -40,6 +40,8 @@ final class UserDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewBuilding()
+        setupCollectionViewRepoDataSource()
         Task {
             await viewModel.fetchFullUserDetails()
         }
@@ -50,13 +52,18 @@ extension UserDetailsViewController: ViewBuilding {
     func setupViews() {
         view.backgroundColor = CustomColors.primaryBackground.color
         collectionView.register(
-            SimpleCardViewCell.self,
-            forCellWithReuseIdentifier: SimpleCardViewCell.reuseIdentifier
+            InfoCardView.self,
+            forCellWithReuseIdentifier: InfoCardView.reuseIdentifier
         )
         collectionView.register(
             ProfileHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ProfileHeaderView.reuseIdentifier
+        )
+        collectionView.register(
+            SectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
         view.addSubview(collectionView)
     }
@@ -90,7 +97,8 @@ extension UserDetailsViewController: ViewControllerDisplaying {
 
 extension UserDetailsViewController: UserDetailsDisplaying {
     func handleUserDetails(_ userDetails: UserDetailsModel, _ userRepos: [UserRepositoryModel]) {
-        // MARK: To do - implement functions to create view components
+        setupCollectionViewHeaderDataSource(with: userDetails)
+        applySnapshot(with: userRepos)
     }
     
     func didSelectRepository(_ repository: UserRepositoryModel) {
@@ -169,5 +177,99 @@ private extension UserDetailsViewController {
         section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0)
 
         return section
+    }
+    
+    func setupCollectionViewRepoDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, RepositoryItem>(
+            collectionView: collectionView
+        ) {
+            collectionView,
+            indexPath,
+            item in
+            switch item {
+            case .repository(let repo):
+                if let repo {
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: InfoCardView.reuseIdentifier,
+                        for: indexPath
+                    ) as? InfoCardView else {
+                        return UICollectionViewCell()
+                    }
+                    cell.configure(
+                        with: .init(
+                            title: repo.name,
+                            subtitle: repo.description,
+                            leftDetail: repo.language,
+                            rightDetail: String(repo.stargazersCount)
+                        )
+                    )
+                    return cell
+                } else {
+                    // MARK: To do - Create empty cell
+                    return UICollectionViewCell()
+                }
+            }
+        }
+    }
+    
+    func setupCollectionViewHeaderDataSource(with userDetails: UserDetailsModel) {
+        dataSource?.supplementaryViewProvider = { (
+            collectionView: UICollectionView,
+            kind: String,
+            indexPath: IndexPath
+        ) -> UICollectionReusableView? in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+
+            switch (kind, Section(rawValue: indexPath.section)) {
+            case (UICollectionView.elementKindSectionHeader, .profile):
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: ProfileHeaderView.reuseIdentifier,
+                    for: indexPath
+                ) as? ProfileHeaderView else {
+                    fatalError("Header not found")
+                }
+                
+                header.configure(
+                    with: .init(
+                        avatarURL: URL(string: userDetails.avatarUrl),
+                        username: userDetails.login,
+                        name: userDetails.name,
+                        followers: userDetails.followers,
+                        following: userDetails.following,
+                        placeholderImage: nil
+                    )
+                )
+                return header
+                
+            case (UICollectionView.elementKindSectionHeader, .repositories):
+                guard let repoHeaderSection = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: SectionHeaderView.reuseIdentifier,
+                    for: indexPath
+                ) as? SectionHeaderView else {
+                    fatalError("Repository header not found")
+                }
+                repoHeaderSection.configure(title: "Repositories")
+                return repoHeaderSection
+            default:
+                fatalError("Unregistered section found")
+            }
+        }
+    }
+    
+    private func applySnapshot(with repositories: [UserRepositoryModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, RepositoryItem>()
+        snapshot.appendSections([.profile, .repositories])
+
+        if repositories.isEmpty {
+            snapshot.appendItems([.repository(nil)], toSection: .repositories)
+        } else {
+            snapshot.appendItems(repositories.map { .repository($0) }, toSection: .repositories)
+        }
+        
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
