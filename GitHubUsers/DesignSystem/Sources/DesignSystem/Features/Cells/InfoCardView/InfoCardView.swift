@@ -13,6 +13,8 @@ import UIKit
 /// -    leftDetail: horizontal text on the left, with a light color
 /// -    rightDetail: horizontal text on the right, the same color as subtitle but with a light weight
 public class InfoCardView: UICollectionViewCell {
+    static public let reuseIdentifier = "InfoCard"
+    
     lazy var containerView: UIView = {
         let container = UIView()
         container.layer.cornerRadius = CustomSize.base4.value
