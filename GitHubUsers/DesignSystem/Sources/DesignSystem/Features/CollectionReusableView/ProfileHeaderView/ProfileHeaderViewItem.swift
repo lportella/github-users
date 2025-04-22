@@ -15,5 +15,21 @@ public extension ProfileHeaderView {
         let followers: Int
         let following: Int
         let placeholderImage: UIImage?
+        
+        public init(
+            avatarURL: URL?,
+            username: String,
+            name: String?,
+            followers: Int,
+            following: Int,
+            placeholderImage: UIImage?
+        ) {
+            self.avatarURL = avatarURL
+            self.username = username
+            self.name = name
+            self.followers = followers
+            self.following = following
+            self.placeholderImage = placeholderImage
+        }
     }
 }
