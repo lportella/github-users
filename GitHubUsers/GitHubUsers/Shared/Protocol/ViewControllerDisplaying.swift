@@ -8,6 +8,5 @@
 import DesignSystem
 
 protocol ViewControllerDisplaying {
-    var loadingView: ViewLoading { get }
     func handleLoading(_ isLoading: Bool)
 }

@@ -8,7 +8,7 @@
 import DesignSystem
 import UIKit
 
-final class UserDetailsViewController: UIViewController {
+final class UserDetailsViewController: UIViewController, ViewControllerLoading {
     var loadingView: DesignSystem.ViewLoading = LoadingView()
     
     private let viewModel: UserDetailsViewModel

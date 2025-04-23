@@ -24,8 +24,8 @@ struct UserListViewModelTests {
         
         #expect(args.viewControllerSpy.messages == [
             .handleLoading(true),
-            .handleUserList(expectedUserList),
-            .handleLoading(false)
+            .handleLoading(false),
+            .handleUserList(expectedUserList)
         ])
     }
     
