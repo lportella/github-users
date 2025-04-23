@@ -24,9 +24,25 @@ struct UserListViewModelTests {
         
         #expect(args.viewControllerSpy.messages == [
             .handleLoading(true),
-            .handleUserList(expectedUserList),
+            .handleLoading(false),
+            .handleUserList(expectedUserList)
+        ])
+    }
+    
+    @Test
+    func testFetchUserList_WhenErrorOnRequest_ShouldReturnListOfUsers() async throws {
+        let args = makeSUT()
+        
+        args.networkMock.expectedResult = .failure(.invalidResponse)
+        
+        await args.sut.fetchUserList()
+        
+        #expect(args.viewControllerSpy.messages == [
+            .handleLoading(true),
             .handleLoading(false)
         ])
+        
+        #expect(args.coordinatorSpy.messages == [.displayFeedbackSystem])
     }
     
     @Test

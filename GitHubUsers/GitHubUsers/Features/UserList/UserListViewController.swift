@@ -8,7 +8,7 @@
 import DesignSystem
 import UIKit
 
-final class UserListViewController: UIViewController {
+final class UserListViewController: UIViewController, ViewControllerLoading {
     var loadingView: DesignSystem.ViewLoading = LoadingView()
     
     private let viewModel: UserListUseCase
