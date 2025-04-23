@@ -10,6 +10,18 @@ It has packages that were built thinking in reusability, such as `DesignSystem` 
 
 All features are protocol based and injected, making them easier to mock and test.
 
+The main app is structured like:
+> GitHubUser (Main Module)
+ >> Dependencies (folder resolving dependency injection)
+
+ >> Extension (extensions of types for the main module)
+
+ >> Features (**folder where the actual screens are located**)
+
+ >> Shared (common features and helpers that are used in the whole app)
+
+
+
 # Token Configuration
 
 GitHub has a rate limit of 60 requests if no tokens are used, so a personal api token was used. 
