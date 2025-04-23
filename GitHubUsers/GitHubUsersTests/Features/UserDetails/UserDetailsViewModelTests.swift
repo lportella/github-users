@@ -35,6 +35,26 @@ struct UserDetailsViewModelTests {
     }
     
     @Test
+    func testFetchUserList_WhenErrorOnRequest_ShouldReturnListOfUsers() async throws {
+        let args = makeSUT()
+        let expectedRepos = UserRepositoryModel.fixture
+        
+        args.networkMock.expectedResults = [
+            .failure(ApiError.invalidURL),
+            .success(expectedRepos)
+        ]
+        
+        try await args.sut.fetchFullUserDetails()
+        
+        #expect(args.viewControllerSpy.messages == [
+            .handleLoading(true),
+            .handleLoading(false)
+        ])
+        
+        #expect(args.coordinatorSpy.messages == [.displayFeedbackSystem])
+    }
+    
+    @Test
     func testDidSelectRepository_WhenRepositorySelected_ShouldCreateURLAndDisplayWebView() async throws {
         let args = makeSUT()
         let userRepos = UserRepositoryModel.fixture
