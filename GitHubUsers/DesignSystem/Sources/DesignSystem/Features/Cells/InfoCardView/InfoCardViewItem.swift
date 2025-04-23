@@ -5,18 +5,18 @@
 //  Created by Lucas Portella on 2025/04/21.
 //
 
+import UIKit
+
 public extension InfoCardView {
     struct Item {
         let title: String
         let subtitle: String?
-        let leftDetail: String?
-        let rightDetail: String
+        let details: [IconTextViewItem]
         
-        public init(title: String, subtitle: String?, leftDetail: String?, rightDetail: String) {
+        public init(title: String, subtitle: String?, details: [IconTextViewItem]) {
             self.title = title
             self.subtitle = subtitle
-            self.leftDetail = leftDetail
-            self.rightDetail = rightDetail
+            self.details = details
         }
     }
 }
