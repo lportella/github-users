@@ -29,6 +29,8 @@ public class SimpleCardViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = ImageSize.medium.cornerRadius
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = CustomColors.customLightGray.color?.cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

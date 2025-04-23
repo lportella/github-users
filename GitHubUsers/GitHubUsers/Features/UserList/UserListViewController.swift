@@ -49,6 +49,7 @@ final class UserListViewController: UIViewController {
         super.viewDidLoad()
         setupViewBuilding()
         setupCollectionViewDataSource()
+        setupColelctionViewHeaderDataSource()
         Task {
             await viewModel.fetchUserList()
         }
@@ -61,6 +62,11 @@ extension UserListViewController: ViewBuilding {
         collectionView.register(
             SimpleCardViewCell.self,
             forCellWithReuseIdentifier: SimpleCardViewCell.reuseIdentifier
+        )
+        collectionView.register(
+            SectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
         view.addSubview(collectionView)
     }
@@ -135,6 +141,18 @@ private extension UserListViewController {
             
             let section = NSCollectionLayoutSection(group: group)
             
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(44)
+            )
+            
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            
+            section.boundarySupplementaryItems = [sectionHeader]
             section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
             section.interGroupSpacing = 16
 
@@ -158,6 +176,28 @@ private extension UserListViewController {
                 imageURL: URL(string: item.avatarUrl)
             ))
             return cell
+        }
+    }
+    
+    func setupColelctionViewHeaderDataSource() {
+        dataSource?.supplementaryViewProvider = {(
+            collectionView: UICollectionView,
+            kind: String,
+            indexPath: IndexPath
+        ) -> UICollectionReusableView? in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+            
+            guard let repoHeaderSection = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: SectionHeaderView.reuseIdentifier,
+                for: indexPath
+            ) as? SectionHeaderView else {
+                fatalError("Repository header not found")
+            }
+            repoHeaderSection.configure(title: "User list")
+            return repoHeaderSection
         }
     }
     
