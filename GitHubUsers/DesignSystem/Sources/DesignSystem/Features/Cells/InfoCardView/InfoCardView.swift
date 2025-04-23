@@ -34,29 +34,8 @@ public final class InfoCardView: UICollectionViewCell {
     
     lazy var subtitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: TextSize.small.value, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .regular)
         label.textColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
-        // MARK: Testing colors! Move it to Colors.xcassets after validating.
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var leftDetail: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: TextSize.small.value, weight: .light)
-        label.textColor = UIColor(cgColor: .init(red: 118/255, green: 120/255, blue: 136/255, alpha: 1))
-        // MARK: Testing colors! Move it to Colors.xcassets after validating.
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var rightDetail: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: TextSize.small.value, weight: .light)
-        label.textColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
-        // MARK: Testing colors! Move it to Colors.xcassets after validating.
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -70,9 +49,11 @@ public final class InfoCardView: UICollectionViewCell {
         return stackView
     }()
     
-    lazy var horizontalStack: UIStackView = {
+    lazy var footerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -91,18 +72,15 @@ public final class InfoCardView: UICollectionViewCell {
         super.prepareForReuse()
         title.text = nil
         subtitle.text = nil
-        leftDetail.text = nil
-        rightDetail.text = nil
+        clearStackView(footerStackView)
     }
 }
 
 extension InfoCardView: ViewBuilding {
     func setupViews() {
-        horizontalStack.addArrangedSubview(leftDetail)
-        horizontalStack.addArrangedSubview(rightDetail)
         verticalStack.addArrangedSubview(title)
         verticalStack.addArrangedSubview(subtitle)
-        verticalStack.addArrangedSubview(horizontalStack)
+        verticalStack.addArrangedSubview(footerStackView)
         containerView.addSubview(verticalStack)
         contentView.addSubview(containerView)
     }
@@ -124,9 +102,42 @@ extension InfoCardView: ViewBuilding {
 
 public extension InfoCardView {
     func configure(with item: Item) {
-        title.text = item.title
-        subtitle.text = item.subtitle
-        rightDetail.text = item.rightDetail
-        leftDetail.text = item.leftDetail
+        setupTitle(with: item.title)
+        setupSubtitle(with: item.subtitle)
+        setupFooterDetails(with: item.details)
+    }
+}
+
+private extension InfoCardView {
+    func setupTitle(with titleText: String) {
+        title.text = titleText
+    }
+    
+    func setupSubtitle(with subtitleText: String?) {
+        subtitle.text = subtitleText
+        subtitle.isHidden = subtitleText?.isEmpty ?? true
+    }
+    
+    /// Add detail if text is not nil
+    func setupFooterDetails(with items: [IconTextViewItem]) {
+        items.forEach {
+            if let text = $0.text, !text.isEmpty {
+                let detailStackView = IconTextView()
+                detailStackView.configure(with: $0)
+                footerStackView.addArrangedSubview(detailStackView)
+            }
+        }
+        
+        let spacer = UIView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        spacer.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        footerStackView.addArrangedSubview(spacer)
+    }
+    
+    func clearStackView(_ stackView: UIStackView) {
+        stackView.arrangedSubviews.forEach { subview in
+            stackView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
     }
 }

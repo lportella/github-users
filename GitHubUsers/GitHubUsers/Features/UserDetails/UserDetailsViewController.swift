@@ -278,14 +278,26 @@ private extension UserDetailsViewController {
         ) as? InfoCardView else {
             fatalError("InfoCardView not found")
         }
+        
+        
+        let langugageItem = IconTextViewItem(
+            icon: nil,
+            text: repository.language
+        )
+        
+        let favoriteItem = IconTextViewItem(
+            icon: UIImage(systemName: "star"),
+            text: String(repository.stargazersCount)
+        )
+        
         cell.configure(
             with: .init(
                 title: repository.name,
                 subtitle: repository.description,
-                leftDetail: repository.language,
-                rightDetail: String(repository.stargazersCount)
+                details: [langugageItem, favoriteItem]
             )
         )
+        
         return cell
     }
     
