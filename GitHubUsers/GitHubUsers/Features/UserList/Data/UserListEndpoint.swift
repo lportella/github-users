@@ -19,7 +19,7 @@ struct UserListEndpoint: EndpointData {
     
     var queryItems: [URLQueryItem]? {
         [
-            .init(name: "per_page", value: "50")
+            .init(name: "per_page", value: "80")
         ]
     }
 }
