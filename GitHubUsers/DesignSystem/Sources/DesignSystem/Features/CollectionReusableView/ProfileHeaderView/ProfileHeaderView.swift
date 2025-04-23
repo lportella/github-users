@@ -24,7 +24,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
     lazy var username: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: TextSize.large.value, weight: .bold)
         label.textColor = UIColor(named: CustomColors.primaryBlack.name)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,9 +33,8 @@ public final class ProfileHeaderView: UICollectionReusableView {
     
     lazy var name: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: TextSize.small.value, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .regular)
         label.textColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
-        // MARK: Testing colors! Move it to Colors.xcassets after validating.
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,7 +43,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
     lazy var followersDetail: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .semibold)
         label.textColor = UIColor(named: CustomColors.primaryBlack.name)
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +54,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 12
+        stackView.spacing = CustomSize.base4.value
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -64,7 +63,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 6
+        stackView.spacing = CustomSize.base2.value
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -93,7 +92,9 @@ extension ProfileHeaderView: ViewBuilding {
     func setupViews() {
         detailsStackView.addArrangedSubview(username)
         detailsStackView.addArrangedSubview(name)
+        detailsStackView.setCustomSpacing(CustomSize.base4.value, after: name)
         detailsStackView.addArrangedSubview(followersDetail)
+        detailsStackView.setCustomSpacing(CustomSize.base4.value, after: followersDetail)
         mainStackView.addArrangedSubview(avatar)
         mainStackView.addArrangedSubview(detailsStackView)
         addSubview(mainStackView)
