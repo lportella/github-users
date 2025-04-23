@@ -30,6 +30,22 @@ struct UserListViewModelTests {
     }
     
     @Test
+    func testFetchUserList_WhenErrorOnRequest_ShouldReturnListOfUsers() async throws {
+        let args = makeSUT()
+        
+        args.networkMock.expectedResult = .failure(.invalidResponse)
+        
+        await args.sut.fetchUserList()
+        
+        #expect(args.viewControllerSpy.messages == [
+            .handleLoading(true),
+            .handleLoading(false)
+        ])
+        
+        #expect(args.coordinatorSpy.messages == [.displayFeedbackSystem])
+    }
+    
+    @Test
     func testDidSelectUser_WhenUserSelected_ShouldPassUserLoginToNavigation() async throws {
         let args = makeSUT()
         let expectedUserList = BaseUser.baseUserFixture
