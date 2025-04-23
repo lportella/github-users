@@ -34,9 +34,8 @@ public final class InfoCardView: UICollectionViewCell {
     
     lazy var subtitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: TextSize.small.value, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .regular)
         label.textColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
-        // MARK: Testing colors! Move it to Colors.xcassets after validating.
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
