@@ -34,7 +34,7 @@ public final class ProfileHeaderView: UICollectionReusableView {
     lazy var name: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: TextSize.medium.value, weight: .regular)
-        label.textColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
+        label.textColor = CustomColors.customLightGray.color
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

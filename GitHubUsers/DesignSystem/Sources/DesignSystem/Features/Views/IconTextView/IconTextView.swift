@@ -10,7 +10,7 @@ import UIKit
 public class IconTextView: UIStackView {
     lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = UIColor(cgColor: .init(red: 38/255, green: 40/255, blue: 46/255, alpha: 1))
+        imageView.tintColor = CustomColors.customLightGray.color
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
